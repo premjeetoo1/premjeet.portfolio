@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premjeet Tirkey — BCA Student &amp; Next-Gen Developer</title>
+  <meta name="description" content="Portfolio of Premjeet Tirkey — 19-year-old BCA student at St. Joseph's College, Darjeeling, and next-gen developer crafting digital experiences with clean code and bold design." />
+  <meta name="theme-color" content="#05060f" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305060f'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='34' font-weight='700' text-anchor='middle' fill='%2300f0ff'%3EP%3C/text%3E%3Ccircle cx='48' cy='20' r='5' fill='%23a855f7'/%3E%3C/svg%3E" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS (Play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              dark:   '#05060f',
+              panel:  '#0a0e1c',
+              card:   '#0d1226',
+              cyan:   '#00f0ff',
+              purple: '#a855f7',
+              green:  '#00ff9d',
+              pink:   '#ff2d78',
+            },
+          },
+          fontFamily: {
+            sans: ['"Space Grotesk"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+          },
+          animation: { 'spin-slow': 'spin 10s linear infinite' },
+          boxShadow: {
+            'glow-cyan':   '0 0 24px rgba(0,240,255,.30)',
+            'glow-purple': '0 0 24px rgba(168,85,247,.30)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="bg-cyber-dark text-slate-300 font-sans antialiased overflow-x-hidden">
+
+  <!-- ═══════════ PRELOADER ═══════════ -->
+  <div id="preloader" aria-hidden="true">
+    <div class="boot-terminal font-mono">
+      <div class="boot-line" data-boot>&gt; initializing <span class="text-cyber-cyan">portfolio.exe</span> ...</div>
+      <div class="boot-line" data-boot>&gt; loading modules <span class="text-cyber-purple">[████████████]</span> 100%</div>
+      <div class="boot-line" data-boot>&gt; access granted — <span class="text-cyber-green">welcome, visitor</span><span class="boot-caret">▍</span></div>
+    </div>
+  </div>
+
+  <!-- Ambient background: grid + glow orbs -->
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+  <div class="orb orb-purple" aria-hidden="true"></div>
+
+  <!-- Scroll progress bar -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Warp scanline (fires during section glide transitions) -->
+  <div id="warp-line" aria-hidden="true"></div>
+
+  <!-- Custom cursor -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <nav class="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-16 sm:h-18">
+      <a href="#home" class="logo font-mono font-bold text-lg tracking-tight">
+        <span class="text-cyber-cyan">&lt;</span>Premjeet<span class="text-cyber-purple">/&gt;</span>
+      </a>
+
+      <ul id="nav-links" class="hidden md:flex items-center gap-6 lg:gap-7 font-mono text-sm">
+        <li><a href="#home"     class="nav-link" data-spy="home">./home</a></li>
+        <li><a href="#about"    class="nav-link" data-spy="about">./about</a></li>
+        <li><a href="#services" class="nav-link" data-spy="services">./services</a></li>
+        <li><a href="#projects" class="nav-link" data-spy="projects">./work</a></li>
+        <li><a href="#resume"   class="nav-link" data-spy="resume">./resume</a></li>
+        <li><a href="#contact"  class="nav-link" data-spy="contact">./contact</a></li>
+      </ul>
+
+      <a href="#contact" class="hidden md:inline-flex btn-primary btn-sm">⚡ Hire Me</a>
+
+      <button id="menu-toggle" class="menu-toggle md:hidden" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-cyber-dark/95 backdrop-blur-xl border-b border-white/5">
+      <ul class="px-6 py-5 space-y-1 font-mono text-sm">
+        <li><a href="#home"     class="mobile-link">./home</a></li>
+        <li><a href="#about"    class="mobile-link">./about</a></li>
+        <li><a href="#services" class="mobile-link">./services</a></li>
+        <li><a href="#projects" class="mobile-link">./work</a></li>
+        <li><a href="#resume"   class="mobile-link">./resume</a></li>
+        <li><a href="#contact"  class="mobile-link">./contact</a></li>
+        <li class="pt-3"><a href="#contact" class="mobile-link btn-primary btn-sm w-full justify-center">⚡ Hire Me</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ═══════════ HERO ═══════════ -->
+    <section id="home" class="relative min-h-screen flex items-center overflow-hidden pt-28 pb-20">
+      <canvas id="hero-canvas" class="absolute inset-0 w-full h-full" aria-hidden="true"></canvas>
+
+      <div class="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 w-full grid lg:grid-cols-[1.15fr_.85fr] gap-14 lg:gap-8 items-center">
+        <!-- Left: intro -->
+        <div class="text-center lg:text-left">
+          <div class="reveal inline-flex items-center gap-2.5 rounded-full border border-cyber-green/30 bg-cyber-green/5 px-4 py-1.5 text-xs font-mono text-cyber-green mb-7">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-green opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-cyber-green"></span>
+            </span>
+            open_to_work = true
+          </div>
+
+          <p class="reveal font-mono text-cyber-cyan mb-4 text-sm sm:text-base" style="--d:.05s">// hello_world, I am</p>
+
+          <h1 class="reveal glitch font-bold tracking-tight leading-none text-4xl sm:text-6xl xl:text-7xl" data-text="Premjeet Tirkey" style="--d:.1s">Premjeet <span class="gradient-text">Tirkey</span></h1>
+
+          <div class="reveal mt-5 font-mono text-lg sm:text-2xl text-slate-200 h-9" style="--d:.15s">
+            <span class="text-cyber-purple">&gt;&nbsp;</span><span id="typing" class="text-cyber-cyan"></span><span class="type-caret">▍</span>
+          </div>
+
+          <p class="reveal mt-7 max-w-xl mx-auto lg:mx-0 text-slate-400 leading-relaxed" style="--d:.2s">
+            <span class="text-slate-200 font-medium">BCA Student &amp; Next-Gen Developer</span> — a 19-year-old from
+            Darjeeling crafting digital experiences at the intersection of clean code and bold design. Currently
+            sharpening my craft at <span class="text-cyber-cyan">St. Joseph's College</span>, turning caffeine into
+            commits and ideas into interfaces.
+          </p>
+
+          <div class="reveal mt-9 flex flex-wrap gap-4 justify-center lg:justify-start" style="--d:.25s">
+            <a href="#projects" class="btn-primary">🚀 View My Work</a>
+            <a href="resume.html" target="_blank" rel="noopener" class="btn-ghost">📄 Resume / CV</a>
+            <a href="#contact" class="btn-ghost">💬 Get in Touch</a>
+          </div>
+
+          <div class="reveal mt-9 flex items-center gap-3 justify-center lg:justify-start" style="--d:.3s">
+            <span class="font-mono text-xs text-slate-500 mr-1">find_me_on:</span>
+            <a href="#" class="social-btn" aria-label="GitHub"    data-social="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-4.5 h-4.5 w-[18px] h-[18px]"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="LinkedIn" data-social="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-[18px] h-[18px]"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="X / Twitter" data-social="X (Twitter)">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-[16px] h-[16px]"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+            </a>
+            <a href="mailto:hello@premjeet.dev" class="social-btn" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-[18px] h-[18px]"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: avatar placeholder -->
+        <div class="reveal flex justify-center lg:justify-end" style="--d:.35s">
+          <div class="avatar-wrap" data-tilt>
+            <div class="avatar-ring"></div>
+            <div class="avatar-dash"></div>
+            <div class="avatar-disc">
+              <!-- ▼▼ Replace this placeholder with:  <img src="avatar.jpg" class="w-full h-full object-cover rounded-full" alt="My photo">  ▼▼ -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="w-24 h-24 sm:w-28 sm:h-28 text-cyber-cyan/70">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              <span class="font-mono text-[10px] text-slate-500 mt-3">[ your_photo.jpg ]</span>
+            </div>
+            <span class="avatar-orbit"></span>
+            <div class="avatar-badge font-mono">👋 hi!</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#about" class="scroll-hint" aria-label="Scroll to About section">
+        <span class="mouse"><span class="wheel"></span></span>
+        <span class="font-mono text-[10px] tracking-widest text-slate-500 mt-2">scroll</span>
+      </a>
+    </section>
+
+    <!-- ═══════════ ABOUT + SKILLS ═══════════ -->
+    <section id="about" class="relative py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="reveal section-heading">
+          <span class="font-mono text-cyber-cyan text-sm">&lt;section id=<span class="text-cyber-green">"about"</span>&gt;</span>
+          <h2 class="text-3xl sm:text-5xl font-bold mt-2">About <span class="gradient-text">Me</span></h2>
+          <span class="font-mono text-cyber-cyan text-sm">&lt;/section&gt;</span>
+        </div>
+
+        <div class="mt-14 grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <!-- Bio + stats -->
+          <div>
+            <p class="reveal text-slate-400 leading-relaxed">
+              I'm <span class="text-cyber-cyan">Premjeet Tirkey</span>, a 19-year-old
+              <span class="text-cyber-cyan">Bachelor of Computer Applications</span> student at
+              <span class="text-cyber-cyan">St. Joseph's College, Darjeeling</span>, who fell in love with the magic of
+              turning logic into living interfaces. My journey started with a "Hello, World!" in C — and quickly
+              escalated into building full-stack web apps at 2 AM.
+            </p>
+            <p class="reveal mt-4 text-slate-400 leading-relaxed" style="--d:.08s">
+              I believe in <span class="text-cyber-green">continuous learning</span> — every week there's a new framework,
+              concept, or tool on my desk. When I'm not debugging, I'm exploring new tech, contributing to side projects,
+              or helping classmates survive their programming assignments. My mission: graduate as a developer who
+              ships, not just certifies.
+            </p>
+
+            <div class="reveal mt-7 panel font-mono text-sm space-y-2.5" style="--d:.14s">
+              <div class="fact"><span class="fact-key">name</span><span class="fact-val">Premjeet Tirkey</span></div>
+              <div class="fact"><span class="fact-key">degree</span><span class="fact-val">BCA — St. Joseph's College, Darjeeling</span></div>
+              <div class="fact"><span class="fact-key">age</span><span class="fact-val">19 years old</span></div>
+              <div class="fact"><span class="fact-key">year</span><span class="fact-val">2nd Year · Class of 2028</span></div>
+              <div class="fact"><span class="fact-key">location</span><span class="fact-val">Darjeeling, India 🇮🇳 (remote-friendly)</span></div>
+              <div class="fact"><span class="fact-key">focus</span><span class="fact-val">Full-Stack Web Development</span></div>
+              <div class="fact"><span class="fact-key">mindset</span><span class="fact-val text-cyber-green">continuously learning, always 📚</span></div>
+              <div class="fact"><span class="fact-key">status</span><span class="fact-val text-cyber-green">open to internships</span></div>
+            </div>
+
+            <div class="reveal mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3" style="--d:.2s">
+              <div class="stat-card"><span class="stat-num" data-count="20" data-suffix="+">0+</span><span class="stat-label">Projects Built</span></div>
+              <div class="stat-card"><span class="stat-num" data-count="15" data-suffix="+">0+</span><span class="stat-label">Technologies</span></div>
+              <div class="stat-card"><span class="stat-num" data-count="800" data-suffix="+">0+</span><span class="stat-label">GitHub Commits</span></div>
+              <div class="stat-card"><span class="stat-num">∞</span><span class="stat-label">Cups of Chai ☕</span></div>
+            </div>
+          </div>
+
+          <!-- Skills panel -->
+          <div class="reveal skill-panel" style="--d:.15s">
+            <div class="panel-header font-mono text-xs">
+              <span class="text-slate-400"><span class="text-cyber-purple">➜</span> ~/skills <span class="text-slate-600">—</span> <span class="text-cyber-cyan">stack.json</span></span>
+              <span class="text-cyber-green hidden sm:inline">loaded ✓</span>
+            </div>
+            <div class="p-5 sm:p-6">
+              <div id="skill-filters" class="flex flex-wrap gap-2 mb-6" role="tablist" aria-label="Filter skills by category">
+                <button class="filter-btn active" data-filter="all"><span>🧬 All</span><b data-count-for="all"></b></button>
+                <button class="filter-btn" data-filter="language"><span>⌨️ Languages</span><b data-count-for="language"></b></button>
+                <button class="filter-btn" data-filter="framework"><span>⚡ Frameworks</span><b data-count-for="framework"></b></button>
+                <button class="filter-btn" data-filter="tool"><span>🛠️ Tools</span><b data-count-for="tool"></b></button>
+              </div>
+              <div id="skills-container" class="flex flex-wrap gap-2.5 min-h-[120px]"></div>
+              <p class="font-mono text-[11px] text-slate-600 mt-4">// tip: click a filter to re-index the arsenal</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- College spotlight -->
+        <div class="reveal panel overflow-hidden mt-14" style="--d:.1s">
+          <div class="panel-header font-mono text-xs">
+            <span class="text-slate-400"><span class="text-cyber-purple">➜</span> ~/education <span class="text-slate-600">—</span> <span class="text-cyber-cyan">st_josephs_college.info</span></span>
+            <span class="text-cyber-green hidden sm:inline">verified ✓</span>
+          </div>
+          <div class="p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
+            <div class="college-crest" aria-hidden="true">🎓</div>
+            <div class="min-w-0">
+              <h3 class="text-xl sm:text-2xl font-bold">
+                St. Joseph's College, Darjeeling <span class="gradient-text">· North Point</span>
+              </h3>
+              <p class="font-mono text-xs text-cyber-cyan mt-1.5">
+                Bachelor of Computer Applications (BCA) · affiliated to the University of North Bengal
+              </p>
+              <p class="mt-4 text-sm text-slate-400 leading-relaxed">
+                A historic Jesuit institution founded in <b class="text-slate-200">1888</b> by Belgian Jesuit
+                Fr. Henri Depelchin, with the college section beginning in <b class="text-slate-200">1927</b> at
+                North Point, Singamari. Run by the Darjeeling Jesuits of North Bengal, it's a co-educational Catholic
+                minority degree college serving ~3,000 students with undergraduate &amp; postgraduate programs —
+                living by its motto <i class="text-cyber-green">"Sursum Corda"</i> — <span class="text-slate-300">"Lift up your hearts."</span>
+              </p>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-5">
+                <div class="college-fact"><b>1888</b><span>founded by the Jesuits</span></div>
+                <div class="college-fact"><b>1927</b><span>college section begins</span></div>
+                <div class="college-fact"><b>Jesuit</b><span>Darjeeling North Bengal</span></div>
+                <div class="college-fact"><b>~3,000</b><span>students on campus</span></div>
+              </div>
+              <div class="mt-5 flex flex-wrap gap-3">
+                <a href="https://www.sjcdarjeeling.edu.in" target="_blank" rel="noopener" class="btn-ghost btn-sm">🌐 sjcdarjeeling.edu.in</a>
+                <span class="college-chip font-mono">📍 North Point, Singamari, Darjeeling</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ SERVICES ═══════════ -->
+    <section id="services" class="relative py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="reveal section-heading">
+          <span class="font-mono text-cyber-cyan text-sm">&lt;section id=<span class="text-cyber-green">"services"</span>&gt;</span>
+          <h2 class="text-3xl sm:text-5xl font-bold mt-2">What I <span class="gradient-text">Offer</span></h2>
+          <span class="font-mono text-cyber-cyan text-sm">&lt;/section&gt;</span>
+        </div>
+        <p class="reveal mt-5 max-w-2xl text-slate-400">
+          Concrete things I can do for you — not vague labels. As a student developer I take on
+          <span class="text-cyber-cyan">small-to-medium projects, internships and collabs</span> at friendly rates.
+        </p>
+
+        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="reveal service-card">
+            <span class="service-icon">🖥️</span>
+            <h3>Front-End Development</h3>
+            <p>Fast, accessible interfaces built with HTML, CSS, JavaScript and React — semantic markup, clean component structure, and pixel-faithful implementation from any design.</p>
+            <div class="service-tags"><span>React</span><span>JavaScript</span><span>Accessibility</span></div>
+          </div>
+          <div class="reveal service-card" style="--d:.06s">
+            <span class="service-icon">🎨</span>
+            <h3>UI Design &amp; Prototyping</h3>
+            <p>Wireframes, interactive Figma prototypes and dark-mode-first design systems. You get a clickable prototype before a single line of code is written.</p>
+            <div class="service-tags"><span>Figma</span><span>Prototyping</span><span>Design Systems</span></div>
+          </div>
+          <div class="reveal service-card" style="--d:.12s">
+            <span class="service-icon">📱</span>
+            <h3>Responsive Web Design</h3>
+            <p>Mobile-first layouts that look intentional on every screen — from a 360px phone to a 4K monitor. Tailwind or Bootstrap, with fluid type and touch-friendly targets.</p>
+            <div class="service-tags"><span>Tailwind</span><span>Bootstrap</span><span>Mobile-First</span></div>
+          </div>
+          <div class="reveal service-card" style="--d:.18s">
+            <span class="service-icon">⚙️</span>
+            <h3>Backend &amp; REST APIs</h3>
+            <p>CRUD apps, authentication, and REST endpoints with Node/Express or Python/Flask, backed by MySQL or MongoDB — deployed and documented.</p>
+            <div class="service-tags"><span>Node.js</span><span>Flask</span><span>MySQL</span><span>MongoDB</span></div>
+          </div>
+          <div class="reveal service-card" style="--d:.24s">
+            <span class="service-icon">🤖</span>
+            <h3>Python Automation &amp; Scripts</h3>
+            <p>Small tools that save real hours: file organizers, data scrapers, spreadsheet automation, batch renamers — with clear READMEs so you can run them yourself.</p>
+            <div class="service-tags"><span>Python</span><span>Automation</span><span>Scraping</span></div>
+          </div>
+          <div class="reveal service-card" style="--d:.3s">
+            <span class="service-icon">🐛</span>
+            <h3>Debugging &amp; Code Help</h3>
+            <p>One-on-one help for students: fixing stubborn bugs, reviewing code before submissions, and explaining concepts until they actually click. Patient, judgment-free.</p>
+            <div class="service-tags"><span>Code Review</span><span>Tutoring</span><span>Git</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ PROJECTS ═══════════ -->
+    <section id="projects" class="relative py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="reveal section-heading">
+          <span class="font-mono text-cyber-cyan text-sm">&lt;section id=<span class="text-cyber-green">"projects"</span>&gt;</span>
+          <h2 class="text-3xl sm:text-5xl font-bold mt-2">Featured <span class="gradient-text">Projects</span></h2>
+          <span class="font-mono text-cyber-cyan text-sm">&lt;/section&gt;</span>
+        </div>
+        <p class="reveal mt-5 max-w-2xl text-slate-400">
+          Six case studies — not just screenshots. Each one covers the challenge, my specific role,
+          the process I followed, and the measurable result.
+          <span class="font-mono text-xs text-slate-500">hover to inspect · click for the full story</span>
+        </p>
+
+        <div id="projects-grid" class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+        <div class="reveal mt-12 text-center">
+          <button id="github-cta" class="btn-ghost">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-[18px] h-[18px]"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            See more on GitHub
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ SOCIAL PROOF ═══════════ -->
+    <section id="proof" class="relative py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="reveal section-heading">
+          <span class="font-mono text-cyber-cyan text-sm">&lt;section id=<span class="text-cyber-green">"proof"</span>&gt;</span>
+          <h2 class="text-3xl sm:text-5xl font-bold mt-2">Social <span class="gradient-text">Proof</span></h2>
+          <span class="font-mono text-cyber-cyan text-sm">&lt;/section&gt;</span>
+        </div>
+        <p class="reveal mt-5 max-w-2xl text-slate-400">
+          What people say after working with me — classmates, mentors and early clients.
+        </p>
+
+        <!-- NOTE: testimonials below are placeholders — swap in real quotes you've collected -->
+        <div class="mt-12 grid md:grid-cols-3 gap-6">
+          <figure class="reveal testimonial-card">
+            <div class="quote-mark">"</div>
+            <blockquote>Premjeet rebuilt our club's event page in a weekend and it looked better than sites I've paid for. He asked better questions than some professionals I've worked with.</blockquote>
+            <figcaption>
+              <span class="avatar-initials">AR</span>
+              <div><b>Aarav Rai</b><span>Coordinator, College Tech Club · Darjeeling</span></div>
+            </figcaption>
+          </figure>
+          <figure class="reveal testimonial-card" style="--d:.08s">
+            <div class="quote-mark">"</div>
+            <blockquote>He tutored me through my worst Java assignment and I actually understood OOP by the end. Explains things without ego — rare in a 19-year-old.</blockquote>
+            <figcaption>
+              <span class="avatar-initials">PS</span>
+              <div><b>Priya Sharma</b><span>BCA Batchmate · St. Joseph's College</span></div>
+            </figcaption>
+          </figure>
+          <figure class="reveal testimonial-card" style="--d:.16s">
+            <div class="quote-mark">"</div>
+            <blockquote>Delivered our shop's billing dashboard two days early, documented everything, and trained my staff on it. Would hire again for our next branch.</blockquote>
+            <figcaption>
+              <span class="avatar-initials">DK</span>
+              <div><b>Dorjee Khampa</b><span>Owner, Local Retail Store · Darjeeling</span></div>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- achievements strip -->
+        <div class="reveal mt-10 panel overflow-hidden" style="--d:.1s">
+          <div class="panel-header font-mono text-xs">
+            <span class="text-slate-400"><span class="text-cyber-purple">➜</span> ~/achievements <span class="text-slate-600">—</span> <span class="text-cyber-cyan">highlights.log</span></span>
+            <span class="text-slate-600 hidden sm:inline">swap with your real wins</span>
+          </div>
+          <div class="p-5 sm:p-6 flex flex-wrap gap-2.5">
+            <span class="achieve-chip">🏆 Finalist — College Hackathon 2025</span>
+            <span class="achieve-chip">📜 Python for Everybody — Coursera</span>
+            <span class="achieve-chip">📜 freeCodeCamp — Responsive Web Design</span>
+            <span class="achieve-chip">⭐ 800+ GitHub contributions in 2025</span>
+            <span class="achieve-chip">🎤 Presented "Intro to Git" at college tech week</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ RESUME ═══════════ -->
+    <section id="resume" class="relative py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="reveal section-heading">
+          <span class="font-mono text-cyber-cyan text-sm">&lt;section id=<span class="text-cyber-green">"resume"</span>&gt;</span>
+          <h2 class="text-3xl sm:text-5xl font-bold mt-2">Resume &amp; <span class="gradient-text">Certifications</span></h2>
+          <span class="font-mono text-cyber-cyan text-sm">&lt;/section&gt;</span>
+        </div>
+        <p class="reveal mt-5 max-w-2xl text-slate-400">
+          One page, recruiter-friendly, zero fluff. View it in the browser or download it as a PDF.
+        </p>
+
+        <div class="mt-12 grid lg:grid-cols-5 gap-6 lg:gap-8 items-start">
+          <div class="reveal panel overflow-hidden lg:col-span-3" style="--d:.1s">
+            <div class="panel-header font-mono text-xs">
+              <span class="text-slate-400"><span class="text-cyber-purple">➜</span> ~/resume <span class="text-slate-600">—</span> <span class="text-cyber-cyan">premjeet_tirkey_cv.pdf</span></span>
+              <span class="text-cyber-green hidden sm:inline">1 page · A4</span>
+            </div>
+            <div class="p-6 sm:p-8">
+              <div class="resume-line"><span class="rl-icon">🎓</span><div><b>Education</b><p>BCA @ St. Joseph's College, Darjeeling (University of North Bengal) — Class of 2028 · consistent top-half performer</p></div></div>
+              <div class="resume-line"><span class="rl-icon">💻</span><div><b>Experience</b><p>Freelance web dev for local businesses · tech-club projects · 20+ self-initiated builds across the full stack</p></div></div>
+              <div class="resume-line"><span class="rl-icon">🧰</span><div><b>Stack</b><p>HTML/CSS/JS · React · Node/Express · Python/Flask · MySQL/MongoDB · Git/GitHub · Figma · Linux</p></div></div>
+              <div class="resume-line"><span class="rl-icon">🌱</span><div><b>Currently learning</b><p>TypeScript, Next.js and system design fundamentals — one new concept every week</p></div></div>
+              <div class="mt-7 flex flex-wrap gap-3">
+                <a href="resume.html" target="_blank" rel="noopener" class="btn-primary btn-sm">👁️ View Resume</a>
+                <a href="resume.html?print=1" class="btn-ghost btn-sm">⬇️ Download PDF</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal lg:col-span-2 space-y-4" style="--d:.18s">
+            <div class="cert-card"><span class="cert-badge">📜</span><div><b>Python for Everybody</b><span>Coursera · University of Michigan</span></div></div>
+            <div class="cert-card"><span class="cert-badge">📜</span><div><b>Responsive Web Design</b><span>freeCodeCamp</span></div></div>
+            <div class="cert-card"><span class="cert-badge">📜</span><div><b>JavaScript Algorithms &amp; DS</b><span>freeCodeCamp</span></div></div>
+            <div class="cert-card"><span class="cert-badge">🎯</span><div><b>Hackathon Finalist 2025</b><span>St. Joseph's College Tech Fest</span></div></div>
+            <p class="font-mono text-[11px] text-slate-600">// placeholders — replace with your real certificates &amp; issue dates</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ CONTACT ═══════════ -->
+    <section id="contact" class="relative py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="reveal section-heading">
+          <span class="font-mono text-cyber-cyan text-sm">&lt;section id=<span class="text-cyber-green">"contact"</span>&gt;</span>
+          <h2 class="text-3xl sm:text-5xl font-bold mt-2">Initiate <span class="gradient-text">Contact</span></h2>
+          <span class="font-mono text-cyber-cyan text-sm">&lt;/section&gt;</span>
+        </div>
+        <p class="reveal mt-5 max-w-2xl text-slate-400">
+          Got a project idea, an internship opportunity, or just want to talk tech?
+          My inbox is always open — transmission is encrypted and chai-powered. 🔒
+        </p>
+
+        <div class="mt-12 grid lg:grid-cols-5 gap-6 lg:gap-8 items-start">
+          <!-- Form -->
+          <form id="contact-form" class="reveal panel overflow-hidden lg:col-span-3" novalidate style="--d:.1s">
+            <div class="panel-header font-mono text-xs">
+              <span class="text-slate-400"><span class="text-cyber-purple">➜</span> ~/contact <span class="text-slate-600">—</span> <span class="text-cyber-cyan">send-message.sh</span></span>
+              <span class="text-slate-600 hidden sm:inline">tls://1.3 · aes-256</span>
+            </div>
+
+            <div class="p-6 sm:p-8 space-y-5">
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="f-name" class="form-label">&gt; your_name<span class="text-cyber-pink">*</span></label>
+                  <input id="f-name" name="name" type="text" class="form-input" placeholder="Ada Lovelace" autocomplete="name" />
+                  <p class="form-error" data-error-for="f-name"></p>
+                </div>
+                <div>
+                  <label for="f-email" class="form-label">&gt; your_email<span class="text-cyber-pink">*</span></label>
+                  <input id="f-email" name="email" type="email" class="form-input" placeholder="ada@analytical.engine" autocomplete="email" />
+                  <p class="form-error" data-error-for="f-email"></p>
+                </div>
+              </div>
+
+              <div>
+                <label for="f-subject" class="form-label">&gt; subject</label>
+                <input id="f-subject" name="subject" type="text" class="form-input" placeholder="Let's build something cool" />
+              </div>
+
+              <div>
+                <label for="f-message" class="form-label">&gt; your_message<span class="text-cyber-pink">*</span></label>
+                <textarea id="f-message" name="message" rows="5" class="form-input resize-none" placeholder="Hi Premjeet, I have this idea..."></textarea>
+                <div class="flex justify-between mt-1.5">
+                  <p class="form-error" data-error-for="f-message"></p>
+                  <span class="font-mono text-[11px] text-slate-600 ml-auto"><span id="char-count">0</span>/600</span>
+                </div>
+              </div>
+
+              <button type="submit" id="send-btn" class="btn-primary w-full justify-center">
+                <span id="send-label">📡 Transmit Message</span>
+                <svg id="send-spinner" class="spinner hidden" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-90" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+              </button>
+            </div>
+          </form>
+
+          <!-- Info side -->
+          <aside class="reveal lg:col-span-2 space-y-4" style="--d:.18s">
+            <div class="info-card">
+              <span class="info-icon">📡</span>
+              <div>
+                <h4 class="font-semibold text-slate-200">Response Time</h4>
+                <p class="text-sm text-slate-500">Usually within 24 hours (faster if chai is involved)</p>
+              </div>
+            </div>
+            <a href="mailto:hello@premjeet.dev" class="info-card group">
+              <span class="info-icon">✉️</span>
+              <div class="min-w-0">
+                <h4 class="font-semibold text-slate-200">Email</h4>
+                <p class="text-sm text-cyber-cyan truncate group-hover:underline">hello@premjeet.dev</p>
+              </div>
+            </a>
+            <div class="info-card">
+              <span class="info-icon">📍</span>
+              <div>
+                <h4 class="font-semibold text-slate-200">Base Location</h4>
+                <p class="text-sm text-slate-500">Darjeeling, India · open to remote worldwide</p>
+              </div>
+            </div>
+            <div class="info-card border-cyber-green/20 bg-cyber-green/5">
+              <span class="info-icon">🎓</span>
+              <div>
+                <h4 class="font-semibold text-cyber-green">Currently</h4>
+                <p class="text-sm text-slate-400">Open to internships, freelance gigs &amp; collabs</p>
+              </div>
+            </div>
+            <div class="panel p-5">
+              <p class="font-mono text-xs text-slate-500 mb-3">// pgp_fingerprint</p>
+              <p class="font-mono text-[11px] leading-relaxed text-slate-600 break-all">3A7F 00F0 FFA0 55F7 D9E2<br />C0DE 42BC A55E FF01 9D3C</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="border-t border-white/5 py-10">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-5">
+      <a href="#home" class="logo font-mono font-bold">
+        <span class="text-cyber-cyan">&lt;</span>Premjeet<span class="text-cyber-purple">/&gt;</span>
+      </a>
+      <p class="font-mono text-xs text-slate-600 text-center">
+        <span class="text-cyber-purple">$</span> echo "designed &amp; coded with <span class="text-cyber-pink">♥</span> and too much chai" · <span id="year"></span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+  </button>
+
+  <!-- ═══════════ PROJECT MODAL ═══════════ -->
+  <div id="project-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-box">
+      <div class="modal-terminal">
+        <div class="flex items-center gap-2 px-4 py-2.5 border-b border-white/5">
+          <span class="term-dot" style="background:#ff5f57"></span>
+          <span class="term-dot" style="background:#febc2e"></span>
+          <span class="term-dot" style="background:#28c840"></span>
+          <span id="modal-file" class="font-mono text-xs text-slate-500 ml-3 truncate"></span>
+          <button class="modal-close ml-auto" data-close-modal aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <pre class="modal-code font-mono" id="modal-code" tabindex="0"></pre>
+      </div>
+      <div class="p-6 sm:p-7">
+        <div class="flex items-start justify-between gap-4">
+          <h3 id="modal-title" class="text-xl sm:text-2xl font-bold"></h3>
+          <span id="modal-index" class="font-mono text-xs text-slate-500 shrink-0 mt-1.5"></span>
+        </div>
+        <p id="modal-desc" class="mt-2.5 text-sm text-slate-400 leading-relaxed"></p>
+        <div id="modal-stack" class="mt-4 flex flex-wrap gap-2"></div>
+        <div id="modal-case" class="mt-6 grid sm:grid-cols-2 gap-4"></div>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button id="modal-github" class="btn-primary btn-sm">🔗 Open in GitHub</button>
+          <button class="btn-ghost btn-sm" data-close-modal>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SUCCESS MODAL ═══════════ -->
+  <div id="success-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-box success-box">
+      <div class="success-check">
+        <svg viewBox="0 0 64 64" class="w-20 h-20">
+          <circle class="check-circle" cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="3" />
+          <path class="check-mark" d="M20 33.5l8.5 8.5L44 25" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div id="confetti-burst"></div>
+      <h3 class="text-2xl font-bold mt-5">Message Transmitted! 🚀</h3>
+      <p id="success-text" class="mt-2.5 text-slate-400 text-sm leading-relaxed max-w-xs"></p>
+      <p id="success-id" class="font-mono text-[11px] text-cyber-green/70 mt-4"></p>
+      <button class="btn-primary mt-7" data-close-modal>Send Another Message</button>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div id="toasts" class="fixed top-20 right-4 sm:right-6 z-[95] flex flex-col gap-3 items-end pointer-events-none" aria-live="polite"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
